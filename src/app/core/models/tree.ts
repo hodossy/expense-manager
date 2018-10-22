@@ -14,16 +14,32 @@ export class Node {
     return this.tree ? this.tree.getBranch(this) : [this, ];
   };
 
-  public remove() {
+  public remove(): void {
     this.tree.deleteNode(this);
+    this.reset();
   }
 
-  public removeBranch() {
+  public removeBranch(): void {
+    let branch = this.all;
+    let newTree = new Tree(branch);
+    let shift = this.left;
     this.tree.deleteBranch(this);
+    branch.map((el: Node): Node => {
+      el.setTree(newTree);
+      el.left -= shift;
+      el.right -= shift;
+      return el
+    });
   }
 
   get isLeaf(): boolean {
     return this.right - this.left == 1;
+  };
+
+  private reset() {
+    this.left = 0;
+    this.right = 1;
+    this.tree = undefined;
   };
 
   public setTree(tree: Tree): void {
@@ -92,7 +108,7 @@ export class Tree {
     });
   };
 
-  private getShiftRightFn(from: number, step: number): void {
+  private getShiftRightFn(from: number, step: number) {
     return (el: Node): Node => {
       if(el.right > from) {
         el.right += step;
@@ -104,7 +120,7 @@ export class Tree {
     };
   };
 
-  private getShiftLeftFn(from: number, step: number): void {
+  private getShiftLeftFn(from: number, step: number) {
     return (el: Node): Node => {
       if(el.right < from) {
         el.right -= step;

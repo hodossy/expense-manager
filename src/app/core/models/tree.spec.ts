@@ -82,33 +82,91 @@ describe('Node', () => {
   });
 
   describe('remove(): void', () => {
+    let root: Node;
+    let nodes: Array<Node>;
+
     beforeEach(() => {
-      this.root = new Node();
-      this.nodes = [ // 10 node to build a structure
+      root = new Node();
+      nodes = [ // 10 node to build a structure
         new Node(), new Node(), new Node(), new Node(), new Node(),
         new Node(), new Node(), new Node(), new Node(), new Node()
       ];
-      this.root.addChild(this.nodes[1]);
-      this.root.addChild(this.nodes[0]);
-      this.root.addChild(this.nodes[2]);
-      this.nodes[0].addChild(this.nodes[3]);
-      this.nodes[0].addChild(this.nodes[4]);
-      this.nodes[1].addChild(this.nodes[5]);
-      this.nodes[2].addChild(this.nodes[6]);
-      this.nodes[3].addChild(this.nodes[7]);
-      this.nodes[3].addChild(this.nodes[8]);
-      this.nodes[5].addChild(this.nodes[9]);
+      root.addChild(nodes[1]);
+      root.addChild(nodes[0]);
+      root.addChild(nodes[2]);
+      nodes[0].addChild(nodes[3]);
+      nodes[0].addChild(nodes[4]);
+      nodes[1].addChild(nodes[5]);
+      nodes[2].addChild(nodes[6]);
+      nodes[3].addChild(nodes[7]);
+      nodes[3].addChild(nodes[8]);
+      nodes[5].addChild(nodes[9]);
     });
 
-    it('should reset the tree reference', () => {
-      this.nodes[7].remove();
-      expect(this.nodes[7].tree).toBeUndefined();
+    it('should reset the Node', () => {
+      nodes[7].remove();
+      expect(nodes[7].tree).toBeUndefined();
+      expect(nodes[7].left).toEqual(0);
+      expect(nodes[7].right).toEqual(1);
+    });
+
+    it('should remove a leaf', () => {
+      nodes[7].remove();
+      expect(root.all.length).toEqual(10);
+    });
+
+    it('should remove a branch root without the branch', () => {
+      nodes[0].remove();
+      expect(root.all.length).toEqual(10);
     });
   });
 
   describe('removeBranch(): void', () => {
-    it('', () => {
-      return;
+    let root: Node;
+    let nodes: Array<Node>;
+
+    beforeEach(() => {
+      root = new Node();
+      nodes = [ // 10 node to build a structure
+        new Node(), new Node(), new Node(), new Node(), new Node(),
+        new Node(), new Node(), new Node(), new Node(), new Node()
+      ];
+      root.addChild(nodes[1]);
+      root.addChild(nodes[0]);
+      root.addChild(nodes[2]);
+      nodes[0].addChild(nodes[3]);
+      nodes[0].addChild(nodes[4]);
+      nodes[1].addChild(nodes[5]);
+      nodes[2].addChild(nodes[6]);
+      nodes[3].addChild(nodes[7]);
+      nodes[3].addChild(nodes[8]);
+      nodes[5].addChild(nodes[9]);
+    });
+
+    it('should reset the tree reference', () => {
+      nodes[7].remove();
+      expect(nodes[7].tree).toBeUndefined();
+      expect(nodes[7].left).toEqual(0);
+      expect(nodes[7].right).toEqual(1);
+    });
+
+    it('should remove a leaf', () => {
+      nodes[7].remove();
+      expect(root.all.length).toEqual(10);
+    });
+
+    it('should remove a branch root with its branch', () => {
+      nodes[0].removeBranch();
+      expect(root.all.length).toEqual(6);
+    });
+
+    it('should create a tree for the removed branch', () => {
+      nodes[0].removeBranch();
+      expect(nodes[0].tree).not.toBe(root.tree);
+      expect(nodes[0].tree).toBeTruthy();
+      expect(JSON.stringify(nodes[0].tree)).toEqual(
+        '{"nodes":[{"left":0,"right":9},{"left":3,"right":8},{"left":1,"right":2},{"left":6,"right":7},{"left":4,"right":5}]}'
+      );
     });
   });
 

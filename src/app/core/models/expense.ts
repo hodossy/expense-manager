@@ -15,4 +15,12 @@ export class Expense {
     this.account = account;
     this.category = category;
   };
+
+  toJSON() {
+    return {value: this.value, currency: this.currency, created: this.created.getTime(), account: this.account.id, category: this.category.id}
+  }
+
+  static reviver(key: string, value: any): any {
+    return key === "created" ? new Date(value) : value;
+  }
 }

@@ -36,7 +36,7 @@ export class Node {
     return this.right - this.left == 1;
   };
 
-  private reset() {
+  private reset(): void {
     this.left = 0;
     this.right = 1;
     this.tree = undefined;

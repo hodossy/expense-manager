@@ -22,11 +22,10 @@ export class Node {
 
   public removeBranch(): void {
     let branch = this.all;
-    let newTree = new Tree(branch);
     let shift = this.left;
     this.tree.deleteBranch(this);
+    let newTree = new Tree(branch);
     branch.map((el: Node): Node => {
-      el.setTree(newTree);
       el.left -= shift;
       el.right -= shift;
       return el
@@ -63,11 +62,20 @@ export class Tree {
 
   constructor(nodes?: Array<Node>){
     this.nodes = nodes || new Array<Node>();
+    this.nodes.map((node: Node) => {
+      node.setTree(this);
+    }, this);
   };
 
   get all(): Node[] {
     return this.nodes;
   };
+
+  get root(): Node {
+    return this.nodes.find((node: Node): boolean => {
+      return node.left === 0;
+    });
+  }
 
   public insertNode(node: Node, at: number): void {
     let size = node.right - node.left;

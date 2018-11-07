@@ -13,4 +13,14 @@ describe('Account', () => {
     expect(JSON.stringify(account))
       .toEqual('{"left":0,"right":1,"id":1,"name":"Test Account","archived":false}');
   });
+
+  it('should be converted to and from JSON equally', () => {
+    var expense = new Account();
+    expect(Account.fromJSON(JSON.stringify(expense))).toEqual(expense);
+    expense = new Account(1);
+    expect(Account.fromJSON(JSON.stringify(expense))).toEqual(expense);
+    expense = new Account(1, 'Test Account');
+    expect(Account.fromJSON(JSON.stringify(expense))).toEqual(expense);
+    expense = new Account(1, 'Test Account', true);
+  });
 });

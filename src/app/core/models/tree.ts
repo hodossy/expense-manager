@@ -2,6 +2,7 @@ export class Node {
   public tree: Tree | null;
   public left: number = 0;
   public right: number = 1;
+  protected skip: Array<string> = ['skip', 'tree'];
 
   public addChild(child: Node) {
     if(!this.tree) {
@@ -49,7 +50,7 @@ export class Node {
   toJSON() {
     let obj = {};
     Object.keys(this).forEach((key: string) =>{
-      if(key != 'tree') {
+      if(!this.skip.includes(key)) {
         obj[key] = this[key];
       }
     }, this);

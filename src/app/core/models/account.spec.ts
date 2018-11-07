@@ -11,6 +11,6 @@ describe('Account', () => {
   it('should not serialize expenses', () => {
     let account = new Account(1, 'Test Account', false);
     expect(JSON.stringify(account))
-      .toEqual('{"id":1,"name":"Test Account","archived":false}');
+      .toEqual('{"left":0,"right":1,"id":1,"name":"Test Account","archived":false}');
   });
 });

@@ -1,6 +1,14 @@
 import { Node } from './tree';
 import { Expense } from './expense';
 
+interface AccountJSON {
+  left: number;
+  right: number;
+  id: number;
+  name: string;
+  archived: boolean;
+}
+
 export class Account extends Node {
   public id: number;
   public name: string;
@@ -9,12 +17,22 @@ export class Account extends Node {
 
   constructor(id?: number, name?: string, archived?: boolean) {
     super();
+    this.skip.push('expenses');
     this.id = id;
     this.name = name;
     this.archived = archived;
   }
 
-  toJSON() {
-    return {id: this.id, name: this.name, archived: this.archived}
+  static fromJSON(json: string|AccountJSON): Account {
+    if (typeof json === 'string') {
+      return JSON.parse(json, Account.reviver);
+    } else {
+      let account = new Account();
+      return Object.assign(account, json);
+    }
+  }
+
+  static reviver(key: string, value: any): any {
+    return key === "" ? Account.fromJSON(value) : value;
   }
 }

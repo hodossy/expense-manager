@@ -13,23 +13,23 @@ describe('Expense', () => {
   });
 
   it('should serialize created date as timestamp', () => {
-    let created = new Date();
+    let created = new Date(1);
     let expense = new Expense(10, 'HUF', created);
     expect(JSON.stringify(expense))
-      .toEqual(`{"value":10,"currency":"HUF","created":${created.getTime()},"account":null,"category":null}`)
+      .toEqual('{"value":10,"currency":"HUF","created":1,"account":null,"category":null}');
   });
 
   it('should be revived without account or category', () => {
-    let created = new Date();
+    let created = new Date(1);
     let expense = new Expense(10, 'HUF', created);
-    expect(JSON.parse(`{"value":10,"currency":"HUF","created":${created.getTime()},"account":null,"category":null}`, Expense.reviver))
+    expect(JSON.parse('{"value":10,"currency":"HUF","created":1,"account":null,"category":null}', Expense.reviver))
       .toEqual(expense);
   });
 
   it('should be revived with account and category', () => {
-    let created = new Date();
+    let created = new Date(1);
     let expense = new Expense(10, 'HUF', created, new Account(1), new Category(1));
-    expect(JSON.parse(`{"value":10,"currency":"HUF","created":${created.getTime()},"account":1,"category":1}`, Expense.reviver))
+    expect(JSON.parse('{"value":10,"currency":"HUF","created":1,"account":1,"category":1}', Expense.reviver))
       .toEqual(expense);
   });
 

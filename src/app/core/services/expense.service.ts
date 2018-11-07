@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Account, Category, Expense } from '../models'
-import { ListServiceBase } from './list-base.service';
+import { ListServiceBase } from './list-service.base';
 
 @Injectable({
   providedIn: 'root'

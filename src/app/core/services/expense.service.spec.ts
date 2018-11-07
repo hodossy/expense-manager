@@ -36,7 +36,7 @@ describe('ExpenseService', () => {
     expect(service.getExpensesForCategory(category).length).toEqual(1);
   });
 
-  it('should be serialized to JSON', () => {
+  it('should export expenses to JSON', () => {
     let created = new Date(1);
     service.add(new Expense(10, "HUF", created));
     service.add(new Expense(100, "HUF", created, account));
@@ -50,7 +50,7 @@ describe('ExpenseService', () => {
     );
   });
 
-  it('should read expenses from JSON equally', () => {
+  it('should import from JSON equally', () => {
     let created = new Date(1);
     service.add(new Expense(10, "HUF", created));
     service.add(new Expense(100, "HUF", created, account));

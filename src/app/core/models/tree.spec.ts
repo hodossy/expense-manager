@@ -177,6 +177,16 @@ describe('Tree', () => {
     expect(new Tree()).toBeTruthy();
   });
 
+  it('should identify the first root node', () => {
+    let tree = new Tree();
+    let root = new Node();
+    let node = new Node();
+    tree.insertNode(root, -1);
+    expect(tree.root).toBe(root);
+    tree.insertNode(node, 0);
+    expect(tree.root).toBe(root);
+  });
+
   describe('insertNode(node: Node): void', () => {
     it('should add the first Node', () => {
       let tree = new Tree();

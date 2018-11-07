@@ -27,8 +27,8 @@ export class Expense {
   toJSON(): ExpenseJSON {
     return Object.assign({}, this, {
       created: this.created.getTime(),
-      account: this.account ? this.account.id: null,
-      category: this.category ? this.category.id : null
+      account: this.account ? this.account.id: undefined,
+      category: this.category ? this.category.id : undefined
     });
   }
 

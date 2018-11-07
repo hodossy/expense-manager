@@ -43,9 +43,9 @@ describe('ExpenseService', () => {
     service.add(new Expense(1000, "HUF", created, undefined, category));
     service.add(new Expense(10000, "HUF", created, account, category));
     expect(service.export()).toEqual(
-      '[{"value":10,"currency":"HUF","created":1,"account":null,"category":null},' +
-      '{"value":100,"currency":"HUF","created":1,"account":1,"category":null},' +
-      '{"value":1000,"currency":"HUF","created":1,"account":null,"category":2},' +
+      '[{"value":10,"currency":"HUF","created":1},' +
+      '{"value":100,"currency":"HUF","created":1,"account":1},' +
+      '{"value":1000,"currency":"HUF","created":1,"category":2},' +
       '{"value":10000,"currency":"HUF","created":1,"account":1,"category":2}]'
     );
   });

@@ -16,6 +16,18 @@ export class Node {
     return this.tree ? this.tree.getBranch(this) : [this, ];
   };
 
+  get children(): Array<Node> {
+    return this.tree.getNodesByLvl(this.lvl + 1).filter((el: Node) => {
+      return this.left < el.left && el.right < this.right;
+    }, this);
+  }
+
+  get parent(): Node {
+    return this.tree.getNodesByLvl(this.lvl - 1).filter((el: Node) => {
+      return el.left < this.left && this.right < el.right;
+    }, this).shift(); //there can only be one such element
+  }
+
   public remove(): void {
     this.tree.deleteNode(this);
     this.reset();

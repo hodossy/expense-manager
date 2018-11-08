@@ -10,6 +10,24 @@ describe('Node', () => {
     expect(node.toJSON()['tree']).toBeUndefined();
   });
 
+  it('should identify its parent', () => {
+    let root = new Node();
+    let node1 = new Node();
+    root.addChild(node1);
+    expect(node1.parent).toBe(root);
+    expect(root.parent).toBeUndefined();
+  });
+
+  it('should identify its children', () => {
+    let root = new Node();
+    let node1 = new Node();
+    let node2 = new Node();
+    root.addChild(node1);
+    root.addChild(node2);
+    expect(root.children).toEqual([node1, node2]);
+    expect(node1.children).toEqual([]);
+  });
+
   describe('addChild(child: Node): void', () => {
     it('should add a child', () => {
       let root = new Node();
@@ -318,6 +336,34 @@ describe('Tree', () => {
       expect(tree.all.length).toEqual(1);
       expect(root.left).toEqual(0);
       expect(root.right).toEqual(1);
+    });
+  });
+
+  describe('getNodesByLvl(lvl: number): Array<Node>', () => {
+    let tree: Tree;
+    let root: Node;
+    let nodes: Array<Node>;
+
+    beforeEach(() => {
+      tree = new Tree();
+      root = new Node();
+      nodes = [new Node(), new Node(), new Node()];
+      tree.insertNode(root, -1, -1);
+      tree.insertNode(nodes[0], 0, 0);
+      tree.insertNode(nodes[1], 1, 1);
+      tree.insertNode(nodes[2], 1, 1);
+    });
+
+    it('should get root nodes', () => {
+      expect(tree.getNodesByLvl(0)).toEqual([root]);
+    });
+
+    it('should get lvl 1 nodes', () => {
+      expect(tree.getNodesByLvl(1)).toEqual(nodes.slice(0,1));
+    });
+
+    it('should get lvl 2 nodes', () => {
+      expect(tree.getNodesByLvl(2)).toEqual(nodes.slice(1));
     });
   });
 });

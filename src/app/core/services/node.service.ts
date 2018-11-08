@@ -1,25 +1,26 @@
 import { Node, Tree } from '../models';
 
 export abstract class NodeService<T extends Node> {
-  private tree: Tree;
+  private root: T;
 
   get all() {
-    return this.tree.all;
+    return this.root.all;
+  }
+
+  setRoot(root: T): void {
+    this.root = root;
   }
 
   export(): string {
-    return JSON.stringify(this.tree.all);
+    return JSON.stringify(this.root.all);
   }
 
   import(json: string): void {
     let nodes = JSON.parse(json).map((item) => {
       return this.fromJSON(item);
     }, this)
-    this.tree = new Tree(nodes);
-  }
-
-  setTree(tree: Tree): void {
-    this.tree = tree;
+    let tree = new Tree(nodes);
+    this.root = <T>tree.root;
   }
 
   abstract fromJSON(json: any): T;

@@ -12,7 +12,7 @@ describe('CategoryService', () => {
     service = TestBed.get(CategoryService);
     rootCategory = new Category(1);
     rootCategory.addChild(new Category(2, 'Test Category'));
-    service.setTree(rootCategory.tree);
+    service.setRoot(rootCategory);
   });
 
   it('should be created', () => {

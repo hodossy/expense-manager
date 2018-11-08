@@ -13,7 +13,7 @@ describe('AccountService', () => {
     rootAccount = new Account(1);
     rootAccount.addChild(new Account(2, 'Test Account'));
     rootAccount.addChild(new Account(3, 'Test Account', true));
-    service.setTree(rootAccount.tree);
+    service.setRoot(rootAccount);
   });
 
   it('should be created', () => {

@@ -1,4 +1,4 @@
-import { Node, Tree } from '../models';
+import { Node, Tree } from './tree';
 
 export abstract class NodeService<T extends Node> {
   private root: T;

@@ -1,4 +1,4 @@
-import { Node } from './tree';
+import { Node } from '../../lib/tree';
 import { Expense } from './expense';
 
 interface AccountJSON {

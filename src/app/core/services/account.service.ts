@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Account } from '../models';
-import { NodeService } from './node.service';
+import { NodeService } from '../../lib/tree';
 
 @Injectable({
   providedIn: 'root'

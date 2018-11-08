@@ -13,10 +13,13 @@ describe('Node', () => {
   describe('addChild(child: Node): void', () => {
     it('should add a child', () => {
       let root = new Node();
-      root.addChild(new Node());
+      let node1 = new Node();
+      root.addChild(node1);
       expect(root.tree).toBeTruthy();
-      expect(root.tree.all.length).toEqual(2);
+      expect(root.all.length).toEqual(2);
       expect(root.right).toEqual(3);
+      expect(root.lvl).toEqual(0);
+      expect(node1.lvl).toEqual(1);
     });
 
     it('should add children', () => {
@@ -28,6 +31,7 @@ describe('Node', () => {
       expect(root.right).toEqual(5);
       expect(node1.right).toEqual(4);
       expect(node2.right).toEqual(2);
+      expect(node2.lvl).toEqual(1);
     });
 
     it('should be able to build a complex tree structure', () => {
@@ -48,9 +52,10 @@ describe('Node', () => {
       nodes[5].addChild(nodes[9]);
       expect(root.tree.all.length).toEqual(11);
       expect(JSON.stringify(root.tree)).toEqual(
-        '{"nodes":[{"left":0,"right":21},{"left":11,"right":20},{"left":5,"right":10},\
-{"left":1,"right":4},{"left":14,"right":19},{"left":12,"right":13},{"left":6,"right":9},\
-{"left":2,"right":3},{"left":17,"right":18},{"left":15,"right":16},{"left":7,"right":8}]}'
+        '{"nodes":[{"left":0,"right":21,"lvl":0},{"left":11,"right":20,"lvl":1},{"left":5,"right":10,"lvl":1},' +
+        '{"left":1,"right":4,"lvl":1},{"left":14,"right":19,"lvl":2},{"left":12,"right":13,"lvl":2},' +
+        '{"left":6,"right":9,"lvl":2},{"left":2,"right":3,"lvl":2},{"left":17,"right":18,"lvl":3},' +
+        '{"left":15,"right":16,"lvl":3},{"left":7,"right":8,"lvl":3}]}'
       );
     });
 
@@ -74,9 +79,10 @@ describe('Node', () => {
       root1.addChild(root2);
       expect(root1.tree.all.length).toEqual(12);
       expect(JSON.stringify(root1.tree)).toEqual(
-        '{"nodes":[{"left":0,"right":23},{"left":13,"right":22},{"left":9,"right":12},\
-{"left":16,"right":21},{"left":14,"right":15},{"left":10,"right":11},{"left":19,"right":20},\
-{"left":17,"right":18},{"left":1,"right":8},{"left":2,"right":7},{"left":5,"right":6},{"left":3,"right":4}]}'
+        '{"nodes":[{"left":0,"right":23,"lvl":0},{"left":13,"right":22,"lvl":1},{"left":9,"right":12,"lvl":1},' +
+        '{"left":16,"right":21,"lvl":2},{"left":14,"right":15,"lvl":2},{"left":10,"right":11,"lvl":2},' +
+        '{"left":19,"right":20,"lvl":3},{"left":17,"right":18,"lvl":3},{"left":1,"right":8,"lvl":1},' +
+        '{"left":2,"right":7,"lvl":2},{"left":5,"right":6,"lvl":3},{"left":3,"right":4,"lvl":3}]}'
       );
     });
   });
@@ -165,7 +171,8 @@ describe('Node', () => {
       expect(nodes[0].tree).not.toBe(root.tree);
       expect(nodes[0].tree).toBeTruthy();
       expect(JSON.stringify(nodes[0].tree)).toEqual(
-        '{"nodes":[{"left":0,"right":9},{"left":3,"right":8},{"left":1,"right":2},{"left":6,"right":7},{"left":4,"right":5}]}'
+        '{"nodes":[{"left":0,"right":9,"lvl":0},{"left":3,"right":8,"lvl":1},{"left":1,"right":2,"lvl":1},' +
+        '{"left":6,"right":7,"lvl":2},{"left":4,"right":5,"lvl":2}]}'
       );
     });
   });
@@ -181,9 +188,9 @@ describe('Tree', () => {
     let tree = new Tree();
     let root = new Node();
     let node = new Node();
-    tree.insertNode(root, -1);
+    tree.insertNode(root, -1, -1);
     expect(tree.root).toBe(root);
-    tree.insertNode(node, 0);
+    tree.insertNode(node, 0, 0);
     expect(tree.root).toBe(root);
   });
 
@@ -191,7 +198,7 @@ describe('Tree', () => {
     it('should add the first Node', () => {
       let tree = new Tree();
       let node = new Node();
-      tree.insertNode(node, -1);
+      tree.insertNode(node, -1, -1);
       expect(tree.all.length).toEqual(1);
       expect(node.tree).toBe(tree);
       expect(node.left).toEqual(0);
@@ -202,8 +209,8 @@ describe('Tree', () => {
       let tree = new Tree();
       let root = new Node();
       let node = new Node();
-      tree.insertNode(root, -1);
-      tree.insertNode(node, 0);
+      tree.insertNode(root, -1, -1);
+      tree.insertNode(node, 0, 0);
       expect(tree.all.length).toEqual(2);
       expect(node.tree).toBe(tree);
       expect(root.left).toEqual(0);
@@ -216,8 +223,8 @@ describe('Tree', () => {
       let tree = new Tree();
       let root = new Node();
       let node = new Node();
-      tree.insertNode(root, -1);
-      tree.insertNode(node, -1);
+      tree.insertNode(root, -1, -1);
+      tree.insertNode(node, -1, -1);
       expect(tree.all.length).toEqual(2);
       expect(node.tree).toBe(tree);
       expect(root.left).toEqual(2);
@@ -230,10 +237,10 @@ describe('Tree', () => {
       let tree = new Tree();
       let root = new Node();
       let nodes = [new Node(), new Node(), new Node()];
-      tree.insertNode(root, -1);
-      tree.insertNode(nodes[0], 0);
-      tree.insertNode(nodes[1], 0);
-      tree.insertNode(nodes[2], 2);
+      tree.insertNode(root, -1, -1);
+      tree.insertNode(nodes[0], 0, 0);
+      tree.insertNode(nodes[1], 0, 0);
+      tree.insertNode(nodes[2], 2, 0);
       expect(tree.all.length).toEqual(4);
       expect(nodes[2].left).toEqual(3);
       expect(nodes[2].right).toEqual(4);
@@ -249,10 +256,10 @@ describe('Tree', () => {
       let tree = new Tree();
       let root = new Node();
       let nodes = [new Node(), new Node(), new Node()];
-      tree.insertNode(root, -1);
-      tree.insertNode(nodes[0], 0);
-      tree.insertNode(nodes[1], 0);
-      tree.insertNode(nodes[2], 2);
+      tree.insertNode(root, -1, -1);
+      tree.insertNode(nodes[0], 0, 0);
+      tree.insertNode(nodes[1], 0, 0);
+      tree.insertNode(nodes[2], 2, 0);
       tree.deleteNode(nodes[1]);
       expect(tree.all.length).toEqual(3);
       expect(nodes[2].left).toEqual(1);
@@ -267,10 +274,10 @@ describe('Tree', () => {
       let tree = new Tree();
       let root = new Node();
       let nodes = [new Node(), new Node(), new Node()];
-      tree.insertNode(root, -1);
-      tree.insertNode(nodes[0], 0);
-      tree.insertNode(nodes[1], 1);
-      tree.insertNode(nodes[2], 1);
+      tree.insertNode(root, -1, -1);
+      tree.insertNode(nodes[0], 0, 0);
+      tree.insertNode(nodes[1], 1, 1);
+      tree.insertNode(nodes[2], 1, 1);
       tree.deleteNode(nodes[0]);
       expect(tree.all.length).toEqual(3);
       expect(nodes[2].left).toEqual(1);
@@ -285,10 +292,10 @@ describe('Tree', () => {
       let tree = new Tree();
       let root = new Node();
       let nodes = [new Node(), new Node(), new Node()];
-      tree.insertNode(root, -1);
-      tree.insertNode(nodes[0], 0);
-      tree.insertNode(nodes[1], 0);
-      tree.insertNode(nodes[2], 2);
+      tree.insertNode(root, -1, -1);
+      tree.insertNode(nodes[0], 0, 0);
+      tree.insertNode(nodes[1], 0, 0);
+      tree.insertNode(nodes[2], 2, 0);
       tree.deleteBranch(nodes[1]);
       expect(tree.all.length).toEqual(3);
       expect(nodes[2].left).toEqual(1);
@@ -303,10 +310,10 @@ describe('Tree', () => {
       let tree = new Tree();
       let root = new Node();
       let nodes = [new Node(), new Node(), new Node()];
-      tree.insertNode(root, -1);
-      tree.insertNode(nodes[0], 0);
-      tree.insertNode(nodes[1], 1);
-      tree.insertNode(nodes[2], 1);
+      tree.insertNode(root, -1, -1);
+      tree.insertNode(nodes[0], 0, 0);
+      tree.insertNode(nodes[1], 1, 1);
+      tree.insertNode(nodes[2], 1, 1);
       tree.deleteBranch(nodes[0]);
       expect(tree.all.length).toEqual(1);
       expect(root.left).toEqual(0);

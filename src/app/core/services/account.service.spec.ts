@@ -22,9 +22,9 @@ describe('AccountService', () => {
 
   it('should export the accounts to JSON', () => {
     expect(service.export()).toEqual(
-      '[{"left":0,"right":5,"id":1},' +
-      '{"left":3,"right":4,"id":2,"name":"Test Account"},' +
-      '{"left":1,"right":2,"id":3,"name":"Test Account","archived":true}]'
+      '[{"left":0,"right":5,"lvl":0,"id":1},' +
+      '{"left":3,"right":4,"lvl":1,"id":2,"name":"Test Account"},' +
+      '{"left":1,"right":2,"lvl":1,"id":3,"name":"Test Account","archived":true}]'
     );
   });
 

@@ -21,8 +21,8 @@ describe('CategoryService', () => {
 
   it('should export the categories to JSON', () => {
     expect(service.export()).toEqual(
-      '[{"left":0,"right":3,"id":1},' +
-      '{"left":1,"right":2,"id":2,"name":"Test Category"}]'
+      '[{"left":0,"right":3,"lvl":0,"id":1},' +
+      '{"left":1,"right":2,"lvl":1,"id":2,"name":"Test Category"}]'
     );
   });
 

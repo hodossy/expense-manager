@@ -10,7 +10,7 @@ describe('Category', () => {
   it('should not serialize expenses', () => {
     let category = new Category(1, 'Test Category');
     expect(JSON.stringify(category))
-      .toEqual('{"left":0,"right":1,"id":1,"name":"Test Category"}');
+      .toEqual('{"left":0,"right":1,"lvl":0,"id":1,"name":"Test Category"}');
   });
 
   it('should be converted to and from JSON equally', () => {

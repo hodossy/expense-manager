@@ -2,13 +2,14 @@ export class Node {
   public tree: Tree | null;
   public left: number = 0;
   public right: number = 1;
+  public lvl: number = 0;
   protected skip: Array<string> = ['skip', 'tree'];
 
   public addChild(child: Node) {
     if(!this.tree) {
       this.tree = new Tree([this, ]);
     }
-    this.tree.insertNode(child, this.left);
+    this.tree.insertNode(child, this.left, this.lvl);
   };
 
   get all(): Array<Node> {
@@ -23,11 +24,13 @@ export class Node {
   public removeBranch(): void {
     let branch = this.all;
     let shift = this.left;
+    let old_lvl = this.lvl;
     this.tree.deleteBranch(this);
     let newTree = new Tree(branch);
     branch.map((el: Node): Node => {
       el.left -= shift;
       el.right -= shift;
+      el.lvl -= old_lvl;
       return el
     });
   }
@@ -77,13 +80,14 @@ export class Tree {
     });
   }
 
-  public insertNode(node: Node, at: number): void {
+  public insertNode(node: Node, at: number, lvl: number): void {
     let size = node.right - node.left;
     let shift = at - node.left + 1;
     let newNodes = node.all.map((el: Node) => {
       el.setTree(this);
       el.left += shift;
       el.right += shift;
+      el.lvl += lvl + 1;
       return el;
     }, this);
     node.left = at + 1;
@@ -102,6 +106,10 @@ export class Tree {
   };
 
   public deleteNode(node: Node): void {
+    node.all.map((el: Node) => {
+      el.lvl -= 1;
+      return el;
+    });
     this.nodes = this.nodes.filter((el: Node): boolean => {
       return node.left != el.left;
     }).map(
@@ -141,9 +149,9 @@ export class Tree {
     };
   };
 
-  public getNodeLvl(node: Node): number {
+  public getNodesByLvl(lvl: number): Array<Node> {
     return this.nodes.filter((el: Node): boolean => {
-      return el.left < node.left && node.right < el.right;
-    }).length;
+      return el.lvl === lvl;
+    });
   };
 }

@@ -28,6 +28,14 @@ describe('Node', () => {
     expect(node1.children).toEqual([]);
   });
 
+  it('should tell if it is a leaf itself', () => {
+    let root = new Node();
+    let node1 = new Node();
+    root.addChild(node1);
+    expect(root.isLeaf).toBeFalsy();
+    expect(node1.isLeaf).toBeTruthy();
+  });
+
   describe('addChild(child: Node): void', () => {
     it('should add a child', () => {
       let root = new Node();

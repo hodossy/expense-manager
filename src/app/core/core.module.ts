@@ -8,6 +8,8 @@ import { CategoryListComponent } from './components/category-list/category-list.
 import { ExpenseListComponent } from './components/expense-list/expense-list.component';
 import { ExpenseDetailComponent } from './components/expense-detail/expense-detail.component';
 
+import { IndicatorDirective } from './directives/indicator.directive';
+
 @NgModule({
   imports: [
     CommonModule
@@ -18,7 +20,8 @@ import { ExpenseDetailComponent } from './components/expense-detail/expense-deta
     CategoryDetailComponent,
     CategoryListComponent,
     ExpenseListComponent,
-    ExpenseDetailComponent
+    ExpenseDetailComponent,
+    IndicatorDirective
   ]
 })
 export class CoreModule { }

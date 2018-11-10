@@ -1,3 +1,6 @@
-<p>
-  expense-detail works!
-</p>
+<span *ngIf="expense" [emIndicator]="expense.value">
+  {{ expense.value | currency:expense.currency:'symbol-narrow' }}
+</span>
+<span i18n="Short text to indicate that there is no expense defined" *ngIf="!expense">
+  No expense to show!
+</span>

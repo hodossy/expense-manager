@@ -7,6 +7,10 @@ export abstract class NodeService<T extends Node> {
     return this.root.all;
   }
 
+  add(node: T): void {
+    this.root.addChild(node);
+  }
+
   setRoot(root: T): void {
     this.root = root;
   }

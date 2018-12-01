@@ -13,22 +13,18 @@ export class ExpenseListComponent implements OnInit {
 
   @Input('noAccount')
   set showAccount(value: string) {
-    console.log('showAccount called!')
     let idx = this.displayedColumns.indexOf('account');
     if( -1 !== idx) {
       this.displayedColumns.splice(idx, 1);
     }
-    console.log(this.displayedColumns);
   }
 
   @Input('noCategory')
   set showCategory(value: string) {
-    console.log('showCategory called!')
     let idx = this.displayedColumns.indexOf('category');
     if( -1 !== idx) {
       this.displayedColumns.splice(idx, 1);
     }
-    console.log(this.displayedColumns);
   }
 
   constructor() { }

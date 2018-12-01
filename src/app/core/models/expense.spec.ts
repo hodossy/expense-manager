@@ -34,7 +34,7 @@ describe('Expense', () => {
   });
 
   it('should be converted to and from JSON equally', () => {
-    var expense = new Expense();
+    let expense = new Expense();
     expect(Expense.fromJSON(JSON.stringify(expense))).toEqual(expense);
     expense = new Expense(10);
     expect(Expense.fromJSON(JSON.stringify(expense))).toEqual(expense);

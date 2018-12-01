@@ -1,3 +1,5 @@
-<p>
-  account-detail works!
-</p>
+<div class="wrapper">
+  <h3>{{account.name}}</h3>
+  <p><<span i18n="'Balance:' for account or category">Balance:</span>{{account.balance}}</p>
+  <app-expense-list [expenses]="account.expenses" noAccount></app-expense-list>
+</div>

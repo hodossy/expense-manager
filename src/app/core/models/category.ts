@@ -11,7 +11,7 @@ interface CategoryJSON {
 export class Category extends Node {
   public id: number;
   public name: string;
-  public expenses: Array<Expense>;
+  public expenses: Array<Expense> = [];
 
   constructor(id?: number, name?: string) {
     super();

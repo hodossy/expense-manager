@@ -23,6 +23,12 @@ export class Account extends Node {
     this.archived = archived;
   }
 
+  get balance() {
+    return this.expenses.reduce<number>((prev: number, cur: Expense) => {
+      return prev + cur.value;
+    }, 0)
+  }
+
   static fromJSON(json: string|AccountJSON): Account {
     if (typeof json === 'string') {
       return JSON.parse(json, Account.reviver);

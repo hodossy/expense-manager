@@ -1,4 +1,5 @@
-import {Category} from './category';
+import { Category } from './category';
+import { Expense } from './expense';
 
 describe('Category', () => {
   it('should create an instance', () => {
@@ -19,5 +20,11 @@ describe('Category', () => {
     expense = new Category(1);
     expect(Category.fromJSON(JSON.stringify(expense))).toEqual(expense);
     expense = new Category(1, 'Test Category');
+  });
+
+  it('should calculate its balance', () => {
+    let account = new Category();
+    account.expenses = [new Expense(1), new Expense(10), new Expense(-100)];
+    expect(account.balance).toEqual(-89);
   });
 });

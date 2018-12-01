@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
 
 import { AccountDetailComponent } from './components/account-detail/account-detail.component';
 import { AccountListComponent } from './components/account-list/account-list.component';
@@ -12,7 +13,8 @@ import { IndicatorDirective } from './directives/indicator.directive';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    MatTableModule
   ],
   declarations: [
     AccountDetailComponent,

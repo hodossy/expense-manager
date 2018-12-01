@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
 
 import { Expense } from '../../models';
 
@@ -10,30 +9,31 @@ import { Expense } from '../../models';
 })
 export class ExpenseListComponent implements OnInit {
   @Input() expenses: Array<Expense>;
-  private displayedColumns = ['created', ]
-  _showAccount: boolean;
-  _showCategory: boolean;
+  private displayedColumns = ['created', 'account', 'category', 'value']
 
   @Input('noAccount')
-  set showAccount(value: boolean) {
-    this._showAccount = !value;
+  set showAccount(value: string) {
+    console.log('showAccount called!')
+    let idx = this.displayedColumns.indexOf('account');
+    if( -1 !== idx) {
+      this.displayedColumns.splice(idx, 1);
+    }
+    console.log(this.displayedColumns);
   }
 
   @Input('noCategory')
-  set showCategory(value: boolean) {
-    this._showCategory = !value;
+  set showCategory(value: string) {
+    console.log('showCategory called!')
+    let idx = this.displayedColumns.indexOf('category');
+    if( -1 !== idx) {
+      this.displayedColumns.splice(idx, 1);
+    }
+    console.log(this.displayedColumns);
   }
 
   constructor() { }
 
   ngOnInit() {
-    if(this._showAccount) {
-      this.displayedColumns.push('account');
-    }
-    if(this._showCategory) {
-      this.displayedColumns.push('category');
-    }
-    this.displayedColumns.push('value');
   }
 
 }

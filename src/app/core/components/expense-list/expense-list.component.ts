@@ -9,7 +9,7 @@ import { Expense } from '../../models';
 })
 export class ExpenseListComponent implements OnInit {
   @Input() expenses: Array<Expense>;
-  private displayedColumns = ['created', 'account', 'category', 'value']
+  displayedColumns = ['created', 'account', 'category', 'value']
 
   @Input('noAccount')
   set showAccount(value: string) {

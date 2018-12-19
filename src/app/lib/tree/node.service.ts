@@ -1,14 +1,11 @@
-import { Node, Tree } from './tree';
+import { Tree } from './tree';
+import { Node } from './node';
 
 export abstract class NodeService<T extends Node> {
   private root: T;
 
   get all() {
     return this.root.all;
-  }
-
-  add(node: T): void {
-    this.root.addChild(node);
   }
 
   setRoot(root: T): void {

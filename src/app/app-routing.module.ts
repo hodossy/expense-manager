@@ -8,7 +8,7 @@ import {
 
 const routes: Routes = [
   { path: 'about', component: AboutPageComponent },
-  { path: 'accounts', component: AccountPageComponent },
+  { path: 'accounts/:id', component: AccountPageComponent },
   { path: 'categories', component: CategoriesPageComponent },
   { path: 'dashboard', component: DashboardPageComponent },
   { path: 'settings', component: SettingsPageComponent },

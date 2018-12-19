@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, ParamMap, convertToParamMap } from '@angular/router';
+import { Observable, of } from 'rxjs';
 
 import { AccountPageComponent } from './account-page.component';
 
@@ -8,7 +10,10 @@ describe('AccountPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AccountPageComponent ]
+      declarations: [ AccountPageComponent ],
+      providers: [
+        {provide: ActivatedRoute, useValue: {paramMap : of(convertToParamMap({id: 0}))}}
+      ]
     })
     .compileComponents();
   }));

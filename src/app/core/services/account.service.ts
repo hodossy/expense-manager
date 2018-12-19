@@ -7,4 +7,10 @@ import { NodeService } from '../../lib/tree';
 })
 export class AccountService extends NodeService<Account> {
   fromJSON = Account.fromJSON;
+
+  getById(id: number) {
+    return this.all.find({el: Node} => {
+      return el.id == id;
+    });
+  }
 }

@@ -1,11 +1,12 @@
 import { Tree } from './tree';
 import { Node } from './node';
+import { Observable, of } from 'rxjs';
 
 export abstract class NodeService<T extends Node> {
   private root: T;
 
-  get all() {
-    return this.root.all;
+  get all$(): Observable<Node[]> {
+    return of(this.root.all);
   }
 
   setRoot(root: T): void {

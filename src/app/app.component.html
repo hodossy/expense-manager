@@ -3,7 +3,6 @@
   gdRows="auto 1fr"
   gdColumns="1fr">
   <mat-toolbar color="primary" gdArea="header">
-    <h1 i18n="Name of the app">Expense Manager</h1>
     <div fxShow.lt-md fxHide>
       <mat-menu #appMenu="matMenu">
         <a mat-menu-item href="accounts/0" routerLinkActive="active"
@@ -32,6 +31,7 @@
         <mat-icon>menu</mat-icon>
       </button>
     </div>
+    <h1 i18n="Name of the app">Expense Manager</h1>
     <div fxHide.lt-md fxShow>
       <a mat-button href="accounts/0" routerLinkActive="active"
          i18n="Navigation button to home page, where accounts are listed">

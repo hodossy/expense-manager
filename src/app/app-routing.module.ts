@@ -12,7 +12,8 @@ const routes: Routes = [
   { path: 'categories', component: CategoriesPageComponent },
   { path: 'dashboard', component: DashboardPageComponent },
   { path: 'settings', component: SettingsPageComponent },
-  { path: '',   redirectTo: '/accounts', pathMatch: 'full' },
+  { path: 'accounts', redirectTo: '/accounts/0', pathMatch: 'full'  },
+  { path: '',   redirectTo: '/accounts/0', pathMatch: 'full' },
   { path: '**', component: NotFoundPageComponent }
 ];
 

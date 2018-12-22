@@ -1,0 +1,35 @@
+<h1 mat-dialog-title i18n="Title of the 'add expense' dialog">Register Expense</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.created" [matDatepicker]="picker" placeholder="Choose a date"
+           i18n-placeholder="Date of expense, date picker form field placeholder">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.value" type="number" placeholder="Sum" cdkFocusInitial
+           i18n-placeholder="Total of the expense, number form field placeholder">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select [(value)]="data.currency" placeholder="Currency"
+                i18n-placeholder="Currency of expense, select form field placeholder">
+      <mat-option *ngFor="let currency of currencies" [value]="currency">{{currency}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select [(value)]="data.account" placeholder="Account"
+                i18n-placeholder="Account of expense, select form field placeholder">
+      <mat-option *ngFor="let account of accountService.all | async" [value]="account">{{account.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select [(value)]="data.category" placeholder="Category"
+                i18n-placeholder="Category of expense, select form field placeholder">
+      <mat-option *ngFor="let category of categoryService.all | async" [value]="category">{{category.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button (click)="onNoClick()" i18n="Cancel expense registering in the dialog">Cancel</button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="data" i18n="Register new expense in the dialog">Create</button>
+</div>

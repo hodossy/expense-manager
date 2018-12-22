@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -12,7 +13,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountPageComponent } from './components/account-page/account-page.component';
 import { CategoriesPageComponent } from './components/categories-page/categories-page.component';
 import { SettingsPageComponent } from './components/settings-page/settings-page.component';
@@ -39,7 +39,8 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
     MatDividerModule,
     MatIconModule,
     MatMenuModule,
-    MatToolbarModule
+    MatToolbarModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

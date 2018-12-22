@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { Account, Category, Expense } from '../../models';
-import { AccountService, CategoryService } from '../../services';
+import { AccountService, CategoryService, ExpenseService } from '../../services';
 import { EM_SUPPORTED_CURRENCIES } from '../../injection-tokens';
 
 @Component({
@@ -16,7 +16,7 @@ export class AddExpenseComponent {
   @Input("selectedCategory") selectedCategory: Category;
   @Input("selectedCurrency") selectedCurrency: string;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public service: ExpenseService) {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddExpenseDialogComponent, {
@@ -28,6 +28,12 @@ export class AddExpenseComponent {
         this.selectedAccount,
         this.selectedCategory
       )
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        this.service.add(result);
+      }
     });
   }
 
@@ -47,7 +53,7 @@ export class AddExpenseDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: Expense) {}
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(undefined);
   }
 
 }

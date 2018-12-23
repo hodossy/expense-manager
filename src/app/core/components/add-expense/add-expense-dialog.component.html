@@ -19,13 +19,13 @@
   <mat-form-field>
     <mat-select [(value)]="data.account" placeholder="Account"
                 i18n-placeholder="Account of expense, select form field placeholder">
-      <mat-option *ngFor="let account of accountService.all | async" [value]="account">{{account.name}}</mat-option>
+      <mat-option *ngFor="let account of accountService.all$ | async" [value]="account">{{account.name}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
     <mat-select [(value)]="data.category" placeholder="Category"
                 i18n-placeholder="Category of expense, select form field placeholder">
-      <mat-option *ngFor="let category of categoryService.all | async" [value]="category">{{category.name}}</mat-option>
+      <mat-option *ngFor="let category of categoryService.all$ | async" [value]="category">{{category.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>

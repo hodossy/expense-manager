@@ -48,7 +48,7 @@ export class AddExpenseDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<AddExpenseDialogComponent>,
     public accountService: AccountService,
-    public categoryService: CategoryService
+    public categoryService: CategoryService,
     @Inject(EM_SUPPORTED_CURRENCIES) public currencies: string[],
     @Inject(MAT_DIALOG_DATA) public data: Expense) {}
 

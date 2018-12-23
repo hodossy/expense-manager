@@ -2,6 +2,9 @@ import { Node } from './node';
 import { NodeService } from './node.service';
 
 class TestService extends NodeService<Node> {
+  fromJSON() {
+    return new Node();
+  }
 }
 
 describe('NodeService', () => {
@@ -17,6 +20,8 @@ describe('NodeService', () => {
   it('should set the root node', () => {
     let service = new TestService();
     service.setRoot(root);
-    expect(service.all.length).toEqual(4);
+    service.all$.subscribe((nodes: Node[]) => {
+      expect(nodes.length).toEqual(4);
+    })
   });
 });

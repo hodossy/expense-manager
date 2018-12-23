@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { forkJoin } from 'rxjs';
 
 import { Account } from '../models';
 import { AccountService } from './account.service';
@@ -31,6 +32,8 @@ describe('AccountService', () => {
   it('should import accounts from JSON', () => {
     let new_service = new AccountService();
     new_service.import(service.export());
-    expect(new_service.all).toEqual(service.all);
+    forkJoin([new_service.all$, service.all$]).subscribe((result) => {
+      expect(result[0]).toEqual(result[0]);
+    });
   });
 });

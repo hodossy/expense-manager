@@ -1,5 +1,4 @@
-import { Component, Inject, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { Account, Category, Expense } from '../../models';
@@ -42,8 +41,9 @@ export class AddExpenseComponent {
 @Component({
   selector: 'em-add-expense-dialog',
   templateUrl: './add-expense-dialog.component.html',
+  styleUrls: ['./add-expense-dialog.component.scss']
 })
-export class AddExpenseDialogComponent {
+export class AddExpenseDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddExpenseDialogComponent>,
@@ -51,6 +51,10 @@ export class AddExpenseDialogComponent {
     public categoryService: CategoryService,
     @Inject(EM_SUPPORTED_CURRENCIES) public currencies: string[],
     @Inject(MAT_DIALOG_DATA) public data: Expense) {}
+
+  ngOnInit(): void {
+    this.data.currency = this.data.currency || this.currencies[0];
+  }
 
   onNoClick(): void {
     this.dialogRef.close(undefined);

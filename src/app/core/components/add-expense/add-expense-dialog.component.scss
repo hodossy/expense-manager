@@ -1,0 +1,18 @@
+mat-form-field {
+  width: 100%;
+
+  &.sum {
+    width: calc(80% - 0.5rem);
+    max-width: calc(100% - 5ch);
+    margin-right: 0.5rem;
+  }
+
+  &.currency {
+    width: 20%;
+    min-width: 5ch;
+  }
+}
+
+button:not(:last-child) {
+  margin-right: 0.5rem;
+}

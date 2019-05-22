@@ -3,7 +3,8 @@ div {
 }
 
 div.container {
-    height: 100%;
+    height: calc(100% - 16px);
+    padding: 16px;
 }
 
 mat-divider {

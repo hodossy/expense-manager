@@ -26,6 +26,10 @@ export class Category extends Node {
     }, 0)
   }
 
+  get displayName(): string {
+    return this.parent ? (<Category>this.parent).displayName + " > " + this.name : this.name;
+  }
+
   static fromJSON(json: string|CategoryJSON): Category {
     if (typeof json === 'string') {
       return JSON.parse(json, Category.reviver);

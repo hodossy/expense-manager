@@ -23,8 +23,16 @@ describe('Category', () => {
   });
 
   it('should calculate its balance', () => {
-    let account = new Category();
-    account.expenses = [new Expense(1), new Expense(10), new Expense(-100)];
-    expect(account.balance).toEqual(-89);
+    let category = new Category();
+    category.expenses = [new Expense(1), new Expense(10), new Expense(-100)];
+    expect(category.balance).toEqual(-89);
+  });
+
+  it('should show a nested display name', () => {
+    let category = new Category(0, 'Category');
+    let subCategory = new Category(1, 'Sub-Category')
+    category.addChild(subCategory);
+    expect(category.displayName).toEqual('Category');
+    expect(subCategory.displayName).toEqual('Category > Sub-Category');
   });
 });

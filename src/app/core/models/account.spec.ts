@@ -30,4 +30,12 @@ describe('Account', () => {
     account.expenses = [new Expense(1), new Expense(10), new Expense(-100)];
     expect(account.balance).toEqual(-89);
   });
+
+  it('should show a nested display name', () => {
+    let account = new Account(0, 'Account');
+    let subAccount = new Account(1, 'Sub-Account')
+    account.addChild(subAccount);
+    expect(account.displayName).toEqual('Account');
+    expect(subAccount.displayName).toEqual('Account > Sub-Account');
+  });
 });

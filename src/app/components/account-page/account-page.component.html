@@ -14,16 +14,12 @@
     <p>Chart</p>
   </div>
 
-  <mat-divider></mat-divider>
-
   <div gdArea="subaccounts">
     <p>Subaccount List</p>
   </div>
 
-  <mat-divider></mat-divider>
-
   <div gdArea="expenses">
-    <p>Expense List</p>
+    <app-expense-list [expenses]="(account$ | async).expenses" noAccount></app-expense-list>
   </div>
 
 </div>

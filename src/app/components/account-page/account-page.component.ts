@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+import { Account } from '../../core/models';
 import { AccountService } from '../../core/services';
 
 @Component({
@@ -19,9 +20,8 @@ export class AccountPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    let account$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.service.getById(params.get('id')))
+    this.account$ = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => this.service.getById(params.get('id')))
     );
   }
 

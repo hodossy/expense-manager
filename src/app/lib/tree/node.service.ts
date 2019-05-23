@@ -5,8 +5,8 @@ import { Observable, of, empty } from 'rxjs';
 export abstract class NodeService<T extends Node> {
   private root: T;
 
-  get all$(): Observable<Node[]> {
-    return this.root ? of(this.root.all) : empty();
+  get all$(): Observable<T[]> {
+    return this.root ? of(<T[]>this.root.all) : empty();
   }
 
   setRoot(root: T): void {

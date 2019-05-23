@@ -34,4 +34,13 @@ describe('CategoryService', () => {
       expect(result[0]).toEqual(result[0]);
     });
   });
+
+  it('should have a root Category if nothing is imported', () => {
+    let new_service = new CategoryService();
+    new_service.import("[]");
+    new_service.all$.subscribe((result) => {
+      expect(result.length).toEqual(0);
+      expect(result[0].id).toEqual(0);
+    });
+  });
 });

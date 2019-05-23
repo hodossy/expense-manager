@@ -33,7 +33,16 @@ describe('AccountService', () => {
     let new_service = new AccountService();
     new_service.import(service.export());
     forkJoin([new_service.all$, service.all$]).subscribe((result) => {
-      expect(result[0]).toEqual(result[0]);
+      expect(result[0]).toEqual(result[1]);
+    });
+  });
+
+  it('should have a root Account if nothing is imported', () => {
+    let new_service = new AccountService();
+    new_service.import("[]");
+    new_service.all$.subscribe((result) => {
+      expect(result.length).toEqual(0);
+      expect(result[0].id).toEqual(0);
     });
   });
 });

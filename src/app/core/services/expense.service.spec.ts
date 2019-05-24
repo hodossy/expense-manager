@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Account, Category, Expense } from '../models';
+import { forkJoin } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { ExpenseService } from './expense.service';
 
@@ -21,19 +23,28 @@ describe('ExpenseService', () => {
 
   it('should add Expenses', () => {
     service.add(new Expense(10, "HUF", undefined, account));
-    expect(service.all.length).toEqual(1);
+    let sub = service.all$.subscribe((expenses) => {
+      expect(expenses.length).toEqual(1);
+    });
+    sub.unsubscribe();
   });
 
   it('should filter by Account', () => {
     service.add(new Expense(10, "HUF"));
     service.add(new Expense(10, "HUF", undefined, account));
-    expect(service.getExpensesForAccount(account).length).toEqual(1);
+    let sub = service.getExpensesForAccount$(account).subscribe((expenses) => {
+      expect(expenses.length).toEqual(1);
+    });
+    sub.unsubscribe();
   });
 
   it('should filter by Category', () => {
     service.add(new Expense(10, "HUF"));
     service.add(new Expense(10, "HUF", undefined, account, category));
-    expect(service.getExpensesForCategory(category).length).toEqual(1);
+    let sub = service.getExpensesForCategory$(category).subscribe((expenses) => {
+      expect(expenses.length).toEqual(1);
+    });
+    sub.unsubscribe();
   });
 
   it('should export expenses to JSON', () => {
@@ -58,6 +69,12 @@ describe('ExpenseService', () => {
     service.add(new Expense(10000, "HUF", created, account, category));
     let new_service = new ExpenseService();
     new_service.import(service.export())
-    expect(new_service.all).toEqual(service.all);
+    let sub = forkJoin(
+      new_service.all$.pipe(take(1)),
+      service.all$.pipe(take(1))
+    ).subscribe((result) => {
+      expect(result[0]).toEqual(result[1]);
+    });
+    sub.unsubscribe();
   });
 });

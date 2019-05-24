@@ -39,7 +39,7 @@ describe('CategoryService', () => {
     let new_service = new CategoryService();
     new_service.import("[]");
     new_service.all$.subscribe((result) => {
-      expect(result.length).toEqual(0);
+      expect(result.length).toEqual(1);
       expect(result[0].id).toEqual(0);
     });
   });

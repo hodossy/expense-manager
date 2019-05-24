@@ -1,16 +1,18 @@
 import { Tree } from './tree';
 import { Node } from './node';
-import { Observable, of, empty } from 'rxjs';
+import { ReplaySubject} from 'rxjs';
 
 export abstract class NodeService<T extends Node> {
   private root: T;
+  public all$: ReplaySubject<T[]>
 
-  get all$(): Observable<T[]> {
-    return this.root ? of(<T[]>this.root.all) : empty();
+  constructor() {
+    this.all$ = new ReplaySubject(1);
   }
 
   setRoot(root: T): void {
     this.root = root;
+    this.all$.next(<T[]>this.root.all);
   }
 
   export(): string {
@@ -18,11 +20,13 @@ export abstract class NodeService<T extends Node> {
   }
 
   import(json: string): void {
-    let nodes = JSON.parse(json).map((item) => {
+    let nodes: Array<T> = JSON.parse(json).map((item) => {
       return this.fromJSON(item);
     }, this)
-    let tree = new Tree(nodes);
-    this.root = <T>tree.root;
+    if (nodes.length > 0) {
+      let tree = new Tree(nodes);
+      this.setRoot(<T>tree.root);
+    }
   }
 
   abstract fromJSON(json: any): T;

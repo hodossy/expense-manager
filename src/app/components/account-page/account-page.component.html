@@ -19,7 +19,7 @@
   </div>
 
   <div gdArea="expenses">
-    <app-expense-list [expenses]="(account$ | async).expenses" noAccount></app-expense-list>
+    <app-expense-list [expenses]="(expenses$ | async)" noAccount></app-expense-list>
   </div>
 
 </div>

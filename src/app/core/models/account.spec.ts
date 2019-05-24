@@ -25,12 +25,6 @@ describe('Account', () => {
     account = new Account(1, 'Test Account', true);
   });
 
-  it('should calculate its balance', () => {
-    let account = new Account();
-    account.expenses = [new Expense(1), new Expense(10), new Expense(-100)];
-    expect(account.balance).toEqual(-89);
-  });
-
   it('should show a nested display name', () => {
     let account = new Account(0, 'Account');
     let subAccount = new Account(1, 'Sub-Account')

@@ -22,12 +22,6 @@ describe('Category', () => {
     expense = new Category(1, 'Test Category');
   });
 
-  it('should calculate its balance', () => {
-    let category = new Category();
-    category.expenses = [new Expense(1), new Expense(10), new Expense(-100)];
-    expect(category.balance).toEqual(-89);
-  });
-
   it('should show a nested display name', () => {
     let category = new Category(0, 'Category');
     let subCategory = new Category(1, 'Sub-Category')

@@ -23,12 +23,6 @@ export class Account extends Node {
     this.archived = archived;
   }
 
-  get balance(): number {
-    return this.expenses.reduce<number>((prev: number, cur: Expense) => {
-      return prev + cur.value;
-    }, 0)
-  }
-
   get displayName(): string {
     return this.parent ? (<Account>this.parent).displayName + " > " + this.name : this.name;
   }

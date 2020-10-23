@@ -1,5 +1,7 @@
 import { ReplaySubject } from 'rxjs';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export abstract class ListServiceBase<T> {
   protected items: Array<T> = new Array<T>();
   public all$: ReplaySubject<T[]>
